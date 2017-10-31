@@ -48,11 +48,16 @@ const setHSLSliderSet = (color, $target, source) => {
     $target.find('.h-text').val(color.h);
     $target.find('.s-text').val(color.s);
     $target.find('.l-text').val(color.l);
+    if (color.a) {
+      $target.find('.a-text').val(color.a);
+    }
   } else if (source === 'text') {
     $h.val(color.h);
     $s.val(color.s);
     $l.val(color.l);
-    $a.val(color.a);
+    if (color.a) {
+      $a.val(color.a);
+    }
   }
 };
 
@@ -73,19 +78,19 @@ const initColors = (colors) => {
     $('.picker-sets').append(`
       <form class='picker-set' id=${color.slug} data-unit=${i}>
         <h2>${color.name}</h2>
-        <label>hue</label>
+        <label for="${color.slug}-h">hue</label>
         <div>
-          <input type='range' min='0' max='360' class='h' value=${color.h} tabIndex='-1'/>
+          <input id="${color.slug}-h" type='range' min='0' max='360' class='h' value=${color.h} tabIndex='-1'/>
           <input type='number' value=${color.h} class='h-text' maxlength="3" max="360" min="0" />
         </div>
-        <label>saturation</label>
+        <label for="${color.slug}-s">saturation</label>
         <div>
-          <input type='range' min='0' max='100' class='s' value=${color.s} tabIndex='-1'/>
+          <input id="${color.slug}-s" type='range' min='0' max='100' class='s' value=${color.s} tabIndex='-1'/>
           <input type='number' value=${color.s} class='s-text' maxlength="3" max="100" min="0" />
         </div>
-        <label>lightness</label>
+        <label for="${color.slug}-l">lightness</label>
         <div>
-          <input type='range' min='0' max='100' class='l' value=${color.l} tabIndex='-1'/>
+          <input id="${color.slug}-l" type='range' min='0' max='100' class='l' value=${color.l} tabIndex='-1'/>
           <input type='number' value=${color.l} class='l-text' maxlength="3" max="100" min="0" />
         </div>
       </form>`);
@@ -94,9 +99,9 @@ const initColors = (colors) => {
 
   $('.picker-set').each(function cb(index) {
     if (typeof colors[index].a !== 'undefined') {
-      $(this).append(`<label>opacity</label>
+      $(this).append(`<label for="${colors[index].slug}-a">opacity</label>
         <div>
-          <input type='range' min='0' max='100' class='a' value=${colors[index].a} tabIndex='-1'/>
+          <input id="${colors[index].slug}-a" type='range' min='0' max='100' class='a' value=${colors[index].a} tabIndex='-1'/>
           <input type='number' value=${colors[index].a} class='a-text' maxlength="3" max="100" min="0" />
         </div>`);
     }
